@@ -24,10 +24,23 @@ RUN tdnf -y install yaml-cpp-static boost-devel clang doxygen iproute
 WORKDIR /src
 RUN mkdir build
 WORKDIR /src/build
+
+# Configure srsRAN with JBPF support enabled
+# This builds all srsRAN components with JRTC/JBPF hooks:
+# - gnb: Monolithic gNB (CU-CP + CU-UP + DU combined)
+# - srscu: Combined CU (CU-CP + CU-UP)
+# - srscucp: CU Control Plane only
+# - srscuup: CU User Plane only
+# - srsdu: Distributed Unit only
 # Temporary fix for failing jbpf tests in RELEASE mode. To be removed when jbpf tests are fixed.
 #RUN cmake .. -DENABLE_DPDK=True -DENABLE_JBPF=ON -DINITIALIZE_SUBMODULES=OFF
 RUN cmake .. -DENABLE_DPDK=True -DENABLE_JBPF=ON -DINITIALIZE_SUBMODULES=OFF -DCMAKE_C_FLAGS="-Wno-error=unused-variable"
+
+# Build all srsRAN components with JBPF support
 RUN make -j VERBOSE=1
+
+# Install all binaries to /usr/local/bin/
+# This installs: gnb, srscu, srscucp, srscuup, srsdu
 RUN make install
 
 ADD Scripts /opt/Scripts

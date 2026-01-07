@@ -27,6 +27,13 @@ This project provides a collection of sample applications for instrumenting **sr
 
 # 2. Significant Commits / Features
 
+[Jan 7, 2026] - Disaggregated RAN Components with JRTC Support
+
+- All srsRAN components (srscu, srscucp, srscuup, srsdu, gnb) are now built with JRTC/JBPF enabled
+- Added comprehensive documentation for disaggregated deployments
+- Docker images now include all O-RAN split architecture binaries
+- See [docs/disaggregated-ran.md](./docs/disaggregated-ran.md) for deployment scenarios
+
 [Jan 6, 2026,  commit 792a739](https://github.com/microsoft/jrtc-apps/commit/5f02871cc8a7bccbddc72c39891fa0bfbf97788c) - Auto-loading of codelets, ZMQ mode
  
 - Codelets can now be passed as command line arguments to __install.sh__, and are automatically loaded.
